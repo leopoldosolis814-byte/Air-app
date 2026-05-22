@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Aether Cabin OS · The Invisible Crew</title>
+  <!-- Google Fonts + Smooth -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #050505;
+      font-family: 'Inter', sans-serif;
+      color: #EDEDED;
+      line-height: 1.4;
+      scroll-behavior: smooth;
+    }
+
+    /* premium dark palette */
+    :root {
+      --bg-black: #050505;
+      --bg-elevated: #0E0E0E;
+      --card-bg: rgba(20, 20, 22, 0.7);
+      --gold: #D4AF37;
+      --gold-glow: rgba(212, 175, 55, 0.25);
+      --white-soft: #F5F5F5;
+      --gray-muted: #A1A1AA;
+      --border-dim: #1F1F1F;
+      --cta-orange: #FF6B00;
+      --cta-hover: #FF8C2E;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* glassmorphism & neumorphism elements */
+    .glass-card {
+      background: rgba(18, 18, 20, 0.65);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: transform 0.25s ease, border-color 0.2s;
+    }
+
+    .glass-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+
+    /* buttons */
+    .btn-primary {
+      background: linear-gradient(135deg, #FFFFFF 0%, #E0E0E0 100%);
+      color: #000;
+      font-weight: 600;
+      padding: 1rem 2rem;
+      border-radius: 3rem;
+      border: none;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary i {
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.02);
+      background: #FFFFFF;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--gold);
+      color: var(--white-soft);
+      padding: 0.9rem 1.8rem;
+      border-radius: 3rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
+    }
+
+    /* typography */
+    h1, h2, h3 {
+      font-family: 'SF Pro Display', 'Inter', sans-serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #FFFFFF 30%, var(--gold) 80%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      border-left: 3px solid var(--gold);
+      padding-left: 0.75rem;
+    }
+
+    /* hero video sim */
+    .hero-video-sim {
+      background: radial-gradient(circle at 20% 30%, #1A1A1F, #010101);
+      border-radius: 2rem;
+      padding: 2rem;
+      margin-top: 2rem;
+      border: 1px solid rgba(212,175,55,0.3);
+      box-shadow: 0 25px 40px -12px black;
+    }
+
+    /* mockup frames */
+    .mockup-phone {
+      background: #111;
+      border-radius: 2.5rem;
+      padding: 1rem;
+      box-shadow: 0 20px 35px -10px black;
+      border: 1px solid #2A2A2A;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .mockup-phone-inner {
+      background: #0A0A0C;
+      border-radius: 1.8rem;
+      overflow: hidden;
+      aspect-ratio: 9 / 19;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    .mockup-tablet {
+      background: #111;
+      border-radius: 2rem;
+      padding: 1rem;
+      max-width: 420px;
+      margin: 0 auto;
+      border: 1px solid #2A2A2A;
+    }
+
+    /* grid utilities */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+      }
+      h1 {
+        font-size: 4rem;
+      }
+      h2 {
+        font-size: 2.6rem;
+      }
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-dim);
+      background: #020202;
+    }
+
+    /* badge */
+    .badge-premium {
+      background: rgba(212,175,55,0.15);
+      border-radius: 100px;
+      padding: 0.3rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--gold);
+      display: inline-block;
+    }
+
+    /* seat map demo */
+    .seat-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+      background: #0F0F12;
+      padding: 1rem;
+      border-radius: 1.2rem;
+    }
+    .seat {
+      background: #1E1E24;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 0.65rem;
+      padding: 6px 0;
+      color: #BBB;
+    }
+    .seat.active {
+      background: var(--gold);
+      color: black;
+      font-weight: bold;
+      box-shadow: 0 0 6px var(--gold);
+    }
+
+    .animate-pulse-gold {
+      transition: all 0.2s;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO SECTION -->
+<section style="padding: 3rem 0 2rem 0;">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <i class="fas fa-wings" style="color: var(--gold); font-size: 2rem;"></i>
+        <span style="font-weight: 700; font-size: 1.4rem; letter-spacing: -0.5px;">AETHER<span style="color: var(--gold);">OS</span></span>
+      </div>
+      <div class="badge-premium"><i class="fas fa-shield-alt"></i> OFFLINE-FIRST · ENTERPRISE</div>
+    </div>
+
+    <div class="hero-video-sim">
+      <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+        <span class="section-tag" style="border-left-color: var(--gold);">The invisible crew. The perfect flight.</span>
+        <h1>El sistema operativo de cabina<br>que convierte cada vuelo<br>en una experiencia personalizada.</h1>
+        <p style="font-size: 1.2rem; color: var(--gray-muted); margin-bottom: 2rem;">Plataforma offline-first para pasajeros y tripulación. Sin fricciones. Sin desperdicio.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+          <button class="btn-primary" onclick="alert('Demo para aerolíneas: contáctanos en demo@aether.aero')"><i class="fas fa-plane-departure"></i> Solicitar Demo para Aerolínea</button>
+          <button class="btn-outline" onclick="alert('Explora la experiencia pasajero — modo LAND & FLY')"><i class="fas fa-mobile-alt"></i> Explorar experiencia a bordo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCIA PASAJERO (LAND / FLY) -->
+<section style="padding: 5rem 0;">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 3rem;">
+      <span class="section-tag">Pasajero · Modo LAND & FLY</span>
+      <h2>Control total.<br>Desde la sala de embarque hasta la pista.</h2>
+    </div>
+    <div class="grid-2">
+      <!-- left: Mockup phone -->
+      <div>
+        <div class="mockup-phone">
+          <div class="mockup-phone-inner">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;"><i class="fas fa-wifi"></i><span style="font-size:0.7rem;">LA123 · MAD→BUE</span></div>
+            <div style="background: #1A1A1E; border-radius: 1rem; padding: 0.8rem; margin-bottom: 0.8rem;">
+              <div style="display: flex; justify-content: space-between;"><span>🍽️ Pre-selección</span><span style="color:var(--gold);">✓</span></div>
+              <div style="font-size:0.75rem;">Cena: Pollo al vino | Desayuno: Frutas</div>
+            </div>
+            <div style="background: #1A1A1E; border-radius: 1rem; padding: 0.8rem; margin-bottom: 0.8rem;">
+              <div><span>🛌 Extras solicitados</span></div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px;"><span class="badge-premium">Agua extra</span><span class="badge-premium">Almohada</span><span class="badge-premium">No molestar</span></div>
+            </div>
+            <div style="margin-top: auto; background: #25252C; border-radius: 1rem; padding: 0.6rem;">
+              <i class="fas fa-robot" style="color:var(--gold);"></i> <span style="font-size:0.7rem;">IA: "¿Café en 30 minutos antes del aterrizaje?"</span>
+            </div>
+          </div>
+        </div>
+        <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem;"><i class="fas fa-arrow-down"></i> Pre-vuelo (LAND) + a bordo (FLY)</p>
+      </div>
+      <!-- right: description -->
+      <div>
+        <div style="margin-bottom: 1.5rem;">
+          <i class="fas fa-check-circle" style="color: var(--gold);"></i> <strong>🍽️ Pre-selección de menú</strong>
+          <p style="color: var(--gray-muted);">Cena, desayuno o almuerzo con opciones personalizadas.</p>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <i class="fas fa-check-circle" style="color: var(--gold);"></i> <strong>🤫 Modos No Molestar / Despertar</strong>
+          <p style="color: var(--gray-muted);">Configura cuándo quieres que te sirvan o descansar sin interrupciones.</p>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <i class="fas fa-check-circle" style="color: var(--gold);"></i> <strong>🤖 IA Concierge</strong>
+          <p style="color: var(--gray-muted);">Lenguaje natural: “Quiero café en 20 min” → se programa automáticamente.</p>
+        </div>
+        <div>
+          <i class="fas fa-check-circle" style="color: var(--gold);"></i> <strong>📺 Publicidad dinámica por destino</strong>
+          <p style="color: var(--gray-muted);">Descuentos exclusivos de partners. La aerolínea cobra el 100%.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRIPULACIÓN: MAPA DE ASIENTOS + AUTOMÁTICO -->
+<section style="padding: 4rem 0; background: #0A0A0C;">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 3rem;">
+      <span class="section-tag">Crew App · Zero config</span>
+      <h2>Todo llega solo.<br>Su trabajo es atender, no teclear.</h2>
+    </div>
+    <div class="grid-2">
+      <div>
+        <div class="mockup-tablet">
+          <div style="padding: 1rem;">
+            <div style="display: flex; justify-content: space-between;"><span><i class="fas fa-map-marked-alt"></i> Cabina A320</span><span>Pedidos: 3 activos</span></div>
+            <div class="seat-grid" style="margin-top: 1rem;">
+              <div class="seat">14A</div><div class="seat">14B</div><div class="seat">14C</div><div class="seat">14D</div><div class="seat">14E</div><div class="seat active">14F 🔴</div>
+              <div class="seat">15A</div><div class="seat">15B</div><div class="seat">15C</div><div class="seat">15D</div><div class="seat">15E</div><div class="seat">15F</div>
+            </div>
+            <div style="margin-top: 1rem; background: #1E1E24; border-radius: 1rem; padding: 0.8rem;">
+              <i class="fas fa-bell" style="color:var(--gold);"></i> <strong>14F · María López</strong><br>
+              🍽️ Cena: Pollo al vino + 💧 Agua extra · <span style="color:#A1A1AA;">hace 2 min</span>
+            </div>
+            <div style="margin-top: 0.8rem; font-size: 0.8rem; color: #aaa;"><i class="fas fa-lock"></i> Modo ONBOARD — configuración bloqueada</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="background: var(--bg-elevated); border-radius: 2rem; padding: 1.5rem;">
+          <i class="fas fa-microchip" style="font-size: 2rem; color: var(--gold);"></i>
+          <h3 style="margin: 0.5rem 0 1rem 0;">Sincronización automática</h3>
+          <p>Cada pedido del pasajero (en LAND o FLY) se vincula al número de asiento con geolocalización virtual dentro de la cabina. Distancia al galley, prioridad y alertas visuales.</p>
+          <ul style="margin-top: 1rem; list-style: none;">
+            <li><i class="fas fa-chair" style="color: var(--gold);"></i> Configurable por modelo de avión (A320, B787, etc.)</li>
+            <li><i class="fas fa-database"></i> Offline-first: funciona sin satélite</li>
+            <li><i class="fas fa-chart-line"></i> Métricas de respuesta en tiempo real</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALOR PARA AEROLÍNEA (dash + ahorro + publicidad) -->
+<section style="padding: 5rem 0;">
+  <div class="container">
+    <div style="text-align: center;">
+      <span class="section-tag">Airline Business Intelligence</span>
+      <h2>Convierta los datos de cabina<br>en rentabilidad real</h2>
+    </div>
+    <div style="background: rgba(0,0,0,0.6); border-radius: 2rem; padding: 2rem; margin-top: 2rem; border: 1px solid #2A2A2F;">
+      <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: space-between;">
+        <div style="flex:1;">
+          <div class="feature-icon"><i class="fas fa-chart-simple"></i></div>
+          <h3>Ahorro catering</h3>
+          <p class="gray-muted">Visualice % real de pasajeros que NO consumen lo incluido. Reajuste inventario y reduzca desperdicio hasta 25%.</p>
+        </div>
+        <div style="flex:1;">
+          <div class="feature-icon"><i class="fas fa-cart-shopping"></i></div>
+          <h3>Venta de extras</h3>
+          <p class="gray-muted">Sugerencias automáticas por duración/hora. Aumente ingreso a bordo (agua, auriculares, kit premium).</p>
+        </div>
+        <div style="flex:1;">
+          <div class="feature-icon"><i class="fas fa-ad"></i></div>
+          <h3>Publicidad partners</h3>
+          <p class="gray-muted">La aerolínea cobra el 100% de los contratos. Nosotros solo damos los sliders automáticos por destino.</p>
+        </div>
+      </div>
+      <div style="margin-top: 2rem; background: #0E0E10; border-radius: 1rem; padding: 1rem;">
+        <i class="fas fa-chart-line"></i> <strong>Métrica ejemplo:</strong> En vuelo LA123 (MAD→BUE) el 38% de pasajeros no tomó cena → ahorro estimado $578 + ventas extras +$1,487.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECNOLOGÍA + PERSONALIZACIÓN 100% -->
+<section style="padding: 3rem 0 5rem 0;">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <span class="section-tag">White label · Enterprise</span>
+        <h2>Su marca. Sus reglas. Su configuración.</h2>
+        <p style="margin: 1rem 0;">Defina menús, precios duty free, sliders publicitarios y modelos de avión. Nosotros la sincronización offline, IA y experiencia de usuario.</p>
+        <div><i class="fas fa-check-circle" style="color: var(--gold);"></i> Configuración por modelo (asientos, ubicación, número)</div>
+        <div style="margin-top: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--gold);"></i> Sin tocar pagos: la aerolínea cobra directamente</div>
+        <div style="margin-top: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--gold);"></i> Cumple IATA / GDPR / seguridad por capas</div>
+      </div>
+      <div style="background: var(--bg-elevated); border-radius: 2rem; padding: 1.8rem;">
+        <i class="fas fa-rocket" style="font-size: 2rem; color: var(--gold);"></i>
+        <h3 style="margin: 1rem 0;">Integración rápida</h3>
+        <p>API REST para conectar con su sistema de catering, inventario y programas de fidelidad. Dashboard operacional en tiempo real.</p>
+        <button class="btn-outline" style="margin-top: 1rem; padding: 0.6rem 1.2rem;" onclick="alert('Contacta con nuestro equipo técnico: tech@aether.aero')"><i class="fas fa-headset"></i> Documentación técnica</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section style="padding: 4rem 0; background: linear-gradient(145deg, #0A0A0E, #020202);">
+  <div class="container" style="text-align: center;">
+    <h2 style="font-size: 2rem;">¿Listo para transformar<br>la experiencia a bordo?</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2rem;">
+      <button class="btn-primary" onclick="alert('Email: airlines@aether.aero | Demo personalizada para tu flota.')"><i class="fas fa-calendar-check"></i> Solicitar Demo Técnica</button>
+      <button class="btn-outline" onclick="alert('ventas@aether.aero · Teléfono +1 (650) 123 4567')"><i class="fas fa-envelope"></i> Contactar con Ventas</button>
+    </div>
+    <p style="margin-top: 2rem; font-size: 0.8rem; color: #707070;"><i class="fas fa-shield-alt"></i> Aether Cabin OS cumple con estándares de seguridad de datos IATA. 100% independiente de sistemas legacy.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="padding: 2rem 0;">
+  <div class="container">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;">
+      <div><i class="fas fa-wings" style="color:var(--gold);"></i> <strong>AETHER OS</strong> © 2026 · Built for airlines, loved by passengers.</div>
+      <div style="display: flex; gap: 1.5rem;">
+        <a href="#" style="color: #ccc; text-decoration: none;" onclick="alert('Demo pasajero interactiva próximamente'); return false;"><i class="fab fa-figma"></i> Demo Passenger</a>
+        <a href="#" style="color: #ccc; text-decoration: none;" onclick="alert('Demo tripulación: mapa de asientos en tiempo real'); return false;"><i class="fas fa-tablet-alt"></i> Demo Crew</a>
+        <a href="#" style="color: #ccc; text-decoration: none;" onclick="alert('Soporte 24/7 para aerolíneas'); return false;"><i class="fas fa-headset"></i> Soporte</a>
+      </div>
+    </div>
+    <div style="margin-top: 1.5rem; font-size: 0.7rem; text-align: center; color: #555;">
+      * En vuelo, los pedidos funcionan offline-first. La tripulación recibe todo automáticamente. La publicidad y pagos son gestionados al 100% por la aerolínea.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // small interactive simulation on seat (just for demo elegance)
+  console.log("AETHER OS · premium cabin platform ready");
+</script>
+</body>
+</html>
